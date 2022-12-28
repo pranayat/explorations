@@ -10,7 +10,7 @@ module.exports.utils = require('./lib/utils');
 
 Bundling module exports into an index file, the index file is then simply imported to make all these modules availiable wherever the index file is imported. Watch our for circular deps.
 
-# hanlde bad constructor function invocations
+# handle bad constructor function invocations
 lib/queue.js
 ```
 const Queue = function Queue(name, url, opts) {
@@ -24,8 +24,7 @@ const Queue = function Queue(name, url, opts) {
 ```
 this `!(this.instanceof Queue))` handles the case where `Queue` may be accidentally called without the new keyword.
 
-# storing this in a closure
-
+# this
 ```
 var sampleObject = function() {
  this.foo = 123;
@@ -79,3 +78,15 @@ SampleObject.prototype.getFoo = function() {
  return nested.call(this);
 }
 ```
+OR by using arrow functions
+```
+sampleObject.prototype.getFoo = function() {
+  // this here is the parent sampleObject object
+  var nested = () => {
+    // hence it remains the same inside the arrow func definition as well, ie its value comes from the enclosing context where the arrow func is defined
+    return this.foo;
+  }
+  return nested();
+}
+```
+
