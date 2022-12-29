@@ -42,11 +42,24 @@ There's only 2 sources I would recommend to study this subject
 # What is epollable and what is not? 3 classes of things:
 - Pollable file descriptors - directly epollable
   - sockets (net/dgram/http/tls/child_process/pipes/stdin,out,err)
+  - signals
+  - child processes
+  - C++ addons can be pollable if they integrate with the loop, but they should use the thread pool if they make blocking system calls and are blocking the uv loop
 - Time - one timeout is directly pollable and others are made epollable (somehow)
   - all timeouts are sorted and epoll waits on the next timeout that is about to expire
 - Everything else happens off the loop and signals back to the loop when done
   - file system - even though it is a file descriptor it cannot be epolled, so this happens in the uv thread pool
-  - blocking call is made by a thread in the uv thread pool and when it completes, readiness signal is sent back to the event loop using an eventfd or a self-pipe
+  - blocking call is made by a thread in the uv thread pool and when it completes, readiness signal is sent back to the event loop using an eventfd or a self-pipe (you can't even wait on threads in epoll)
+  - dns.lookup() happens in the uv thread pool
+  - all other dns operations are integrated in the uv loop
 
 
+# So the uv thread pool is used by
+- fs
+- dns.lookup()
+- crypto.randomBytes(), crypto.pbkdf2()
+- http.get and http.request() only uses it if called with a hostname which needs resolution using dns.lookup() which uses it
+- any C++ addons if they use the thread pool, but if they make blocking sytem calls here, you can have thread pool contention
+4 threads by default, UV_THREADPOOL_SIZE = 4
 
+## Track your event loop time, if it is high, you are either doing something CPU intensive or you are making blocking system calls in the uv loop
