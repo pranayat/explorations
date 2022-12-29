@@ -1,9 +1,5 @@
 # NodeJS
 
-There's only 2 sources I would recommend to study this subject
-1. Straight from the horse's mouth - Sam Roberts - https://www.youtube.com/watch?v=P9csgxBgaZ8
-2. https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/
-
 - Network connections in Unix are called sockets/file descriptors - they point to objects in the kernal (read/write/close/poll etc)
 - Creating a network connection involves 3 steps
   - Call socket()
