@@ -4,7 +4,7 @@ Quick recipe to manage processes with `systemd`, specifically to restart a dead 
 ```
 #!/bin/bash
 
-mongosqld --mongo-uri "mongodb://moo.mongodb.net:27017/?retryWrites=true&w=majority" --auth -u root -p foo --addr 0.0.0.0:3309 --mongo-ssl --sslMode requireSSL --sslPEMKeyFile mongo.pem
+mongosqld --mongo-uri "mongodb://moo.mongodb.net:27017/?retryWrites=true&w=majority" --auth -u root -p foo --addr 0.0.0.0:3309 --mongo-ssl --sslMode requireSSL --sslPEMKeyFile /usr/bin/mongo.pem
 ```
 
 - Write a systemd unit file `/etc/systemd/system/script-manager.service`
