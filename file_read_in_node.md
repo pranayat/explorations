@@ -22,6 +22,7 @@ node app.js
 
 # JS wrapper
 - The `fs.readFile` function imported above is in the [node/lib/fs.js](https://github.com/nodejs/node/blob/3d5e7cd8f049f1d2bd041974fbde87f71cbbbf31/lib/fs.js#L380https://github.com/nodejs/node/blob/3d5e7cd8f049f1d2bd041974fbde87f71cbbbf31/lib/fs.js#L380) file
+- calls the C++ code via bindings TODO: how do these work
 ```js
 function readFile(path, options, callback) {
   callback = maybeCallback(callback || options);
