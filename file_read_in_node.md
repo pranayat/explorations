@@ -132,6 +132,6 @@ static void ReadFileSync(const FunctionCallbackInfo<Value>& args) {
 
 # libuv - a library written in C
 - [File operations](https://docs.libuv.org/en/v1.x/fs.html) are not epollable and run on the libuv thread pool
-- If they were epollable, libuv would have made the epoll() system call to poll the OS for file I/O
+- If they were epollable, libuv would have made the epoll() system call to poll the OS for file I/O. Eg. network I/O is not done in the thread pool but in the loop's main thread using epoll
 - work requests to the threadpool are made using the [uv_queue_work](https://github.com/nodejs/node/blob/6f9d6f277b8dc973ce8bdbb5e135fd22e88b205b/deps/uv/src/threadpool.c#L368) call via the wrapper [here](https://github.com/nodejs/node/blob/6f9d6f277b8dc973ce8bdbb5e135fd22e88b205b/src/threadpoolwork-inl.h#L37)
   
