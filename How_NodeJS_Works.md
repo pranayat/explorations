@@ -1,11 +1,11 @@
 # NodeJS
 
-- Network connections in Unix are called sockets/file descriptors - they point to objects in the kernal (read/write/close/poll etc)
+- Network connections in Unix are called sockets/file descriptors - they point to objects in the kernel (read/write/close/poll etc)
 - Creating a network connection involves 3 steps
   - Call socket()
   - Bind it to a port
   - Call listen()
-- The accept() system call accepts incoming connections, it happens to be a blocking system call. If you request something from the kernal which it can't immediately do, your process will be descheduled and CPU resources will be taken from it. It will get scheduled again when what you requestd form the Kernal is available.
+- The accept() system call accepts incoming connections, it happens to be a blocking system call. If you request something from the kernel which it can't immediately do, your process will be descheduled and CPU resources will be taken from it. It will get scheduled again when what you requestd form the kernel is available.
 - Thread per connection model for servers - traditional non event loop servers like Java servers use this approach
   - Call accept() when a new client request comes in to the server
   - accept() is a blocking system call so the process is descheduled
