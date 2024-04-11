@@ -61,3 +61,6 @@
 
 # Example control flow
 `server = require('server')` (app/index.js) → (via node/lib/_http_server.js → node/lib/net.js) `TCPWrap::listen` (in node/src/tcp_wrap.cc) → `uv_listen` (libUV API) → kernel call to `listen()`
+
+- TLDR; Application code calls libUV API (via C++ bindings) which then registers a callback and makes kernel calls
+- The libUV event loop calls the kernel’s epoll API to in an infinite loop to check for events eg. in this case the creation of a socket.
