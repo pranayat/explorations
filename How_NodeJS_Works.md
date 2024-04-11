@@ -58,3 +58,6 @@
 4 threads by default, UV_THREADPOOL_SIZE = 4
 
 ## Track your event loop time, if it is high, you are either doing something CPU intensive or you are making blocking system calls in the uv loop
+
+# Example control flow
+`server = require('server')` (app/index.js) → (via node/lib/_http_server.js → node/lib/net.js) `TCPWrap::listen` (in node/src/tcp_wrap.cc) → `uv_listen` (libUV API) → kernel call to `listen()`
